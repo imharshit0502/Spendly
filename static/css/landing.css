@@ -1,0 +1,129 @@
+/* Hero Section Enhancements */
+.hero-badge {
+    background: #e8f5e9;
+    color: #2e7d32;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    display: inline-block;
+    font-size: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+.text-accent {
+    color: #4caf50;
+}
+
+.btn-secondary {
+    background: #000;
+    color: #fff !important;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    transition: opacity 0.2s;
+}
+
+.btn-secondary:hover {
+    opacity: 0.8;
+}
+
+/* Browser Window Mockup */
+.browser-window {
+    background: white;
+    border: 1px solid #e4e1da;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.browser-header {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 2rem;
+}
+
+.browser-header .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+.dot-red { background: #ff5f56; }
+.dot-yellow { background: #ffbd2e; }
+.dot-green { background: #27c93f; }
+
+/* Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    padding: 1rem;
+    border: 1px solid #eeebe4;
+    border-radius: 12px;
+}
+
+.stat-label {
+    color: #6b6b6b;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    color: #0f0f0f;
+    font-weight: bold;
+    display: block;
+}
+
+.stat-trend {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+    display: block;
+}
+.trend-up { color: #d32f2f; }
+.trend-down { color: #388e3c; }
+
+/* Breakdown List */
+.breakdown-list {
+    margin-top: 2rem;
+}
+
+.breakdown-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.breakdown-label {
+    font-size: 0.9rem;
+    color: #2d2d2d;
+    width: 60px;
+    flex-shrink: 0;
+}
+
+.progress-track {
+    flex: 1;
+    height: 10px;
+    background: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 5px;
+}
+.fill-food { background: #fbc02d; }
+.fill-travel { background: #42a5f5; }
+.fill-bills { background: #ab47bc; }
