@@ -52,9 +52,9 @@ def seed_db():
 
     # Sample users
     users = [
-        ('Alice Smith', 'alice@example.com', 'password123'),
-        ('Bob Jones', 'bob@example.com', 'password456'),
-        ('Charlie Brown', 'charlie@example.com', 'password789')
+        ('Alice Smith', 'alice@example.com', generate_password_hash('password123')),
+        ('Bob Jones', 'bob@example.com', generate_password_hash('password456')),
+        ('Charlie Brown', 'charlie@example.com', generate_password_hash('password789'))
     ]
 
     conn.executemany(
@@ -101,3 +101,11 @@ def create_user(name, email, password):
     )
     db.commit()
     return cursor.lastrowid
+
+def get_user_by_email(email):
+    """
+    Retrieves a user record from the database by email.
+    Returns a sqlite3.Row object if found, otherwise None.
+    """
+    db = get_db()
+    return db.execute('SELECT * FROM users WHERE email = ?', (email,)).fetchone()
