@@ -1,7 +1,9 @@
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, request, redirect, url_for, flash, abort
+from database import db
 from database.db import get_db, init_db, seed_db
 
 app = Flask(__name__)
+app.secret_key = 'dev-secret-key-123'
 
 @app.teardown_appcontext
 def teardown_db(exception):
@@ -26,8 +28,32 @@ def landing():
     return render_template("landing.html")
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        confirm_password = request.form.get("confirm_password")
+
+        if not all([name, email, password, confirm_password]):
+            flash("All fields are required")
+            return render_template("register.html")
+
+        if password != confirm_password:
+            flash("Passwords do not match")
+            return render_template("register.html")
+
+        try:
+            db.create_user(name, email, password)
+            flash("Account created successfully!")
+            return redirect(url_for("login"))
+        except Exception:
+            # Since we only have the UNIQUE constraint on email,
+            # we can assume it's a duplicate email.
+            flash("Email already registered")
+            return render_template("register.html")
+
     return render_template("register.html")
 
 

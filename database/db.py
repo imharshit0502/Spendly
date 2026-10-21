@@ -1,5 +1,6 @@
 import sqlite3
 from flask import g
+from werkzeug.security import generate_password_hash
 
 DATABASE = 'spendly.db'
 
@@ -86,3 +87,17 @@ def seed_db():
     )
     conn.commit()
     conn.close()
+
+def create_user(name, email, password):
+    """
+    Hashes the password and inserts a new user into the database.
+    Returns the new user's ID.
+    """
+    hashed_password = generate_password_hash(password)
+    db = get_db()
+    cursor = db.execute(
+        'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+        (name, email, hashed_password)
+    )
+    db.commit()
+    return cursor.lastrowid
