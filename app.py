@@ -64,7 +64,7 @@ def register():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if "user_id" in session:
-        return redirect(url_for("landing"))
+        return redirect(url_for("profile"))
 
     if request.method == "POST":
         email = request.form.get("email")
@@ -74,7 +74,7 @@ def login():
         if user and check_password_hash(user["password"], password):
             session["user_id"] = user["id"]
             flash("Welcome back!")
-            return redirect(url_for("landing"))
+            return redirect(url_for("profile"))
 
         flash("Invalid email or password.")
         return redirect(url_for("login"))
@@ -105,7 +105,34 @@ def logout():
 
 @app.route("/profile")
 def profile():
-    return "Profile page — coming in Step 4"
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    # Hardcoded data for UI validation in Step 4
+    context = {
+        "user": {
+            "name": "Alex Rivera",
+            "email": "alex.rivera@example.com",
+            "member_since": "January 2024"
+        },
+        "stats": {
+            "total_spent": "1,240.50",
+            "transaction_count": 42,
+            "top_category": "Dining"
+        },
+        "transactions": [
+            {"date": "2023-10-20", "desc": "Whole Foods Market", "cat": "Groceries", "amt": "-£45.20"},
+            {"date": "2023-10-19", "desc": "Apple Store", "cat": "Shopping", "amt": "-£129.00"},
+            {"date": "2023-10-18", "desc": "Starbucks Coffee", "cat": "Dining", "amt": "-£5.45"},
+        ],
+        "categories": [
+            {"name": "Dining", "total": "£450.00", "percent": 36},
+            {"name": "Groceries", "total": "£320.00", "percent": 25},
+            {"name": "Transport", "total": "£210.00", "percent": 17},
+        ]
+    }
+    return render_template("profile.html", **context)
+
 
 
 @app.route("/expenses/add")
